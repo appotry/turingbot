@@ -12,7 +12,7 @@ module Turingbot
   class Bot
 
     def initialize(name="turingbot", channel=nil)
-      @addressed = %r!@#{name}:|@#{name}|#{name}:|\.\s!
+      @addressed = %r!^(@#{name}:|@#{name}\s|#{name}:|#{name}\s|\.\s)!
       @channel = channel
     end
 
