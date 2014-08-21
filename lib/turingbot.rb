@@ -13,6 +13,7 @@ module Turingbot
 
     def initialize(name="turingbot", channel=nil)
       @addressed = %r!@#{name}:|@#{name}|#{name}:|\.\s!
+      @channel = channel
     end
 
     def call(env)
@@ -21,7 +22,7 @@ module Turingbot
       if req.post?
         params = req.params
 
-        if !channel || params["channel_name"] == channel
+        if !@channel || params["channel_name"] == @channel
           process_message(params)
         end
       end
