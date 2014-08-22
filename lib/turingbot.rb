@@ -37,7 +37,7 @@ module Turingbot
         vars["text"] = m.post_match.strip
 
         begin
-          Command.run(vars)
+          Command.run(vars, Command)
         rescue Exception => e
           vars["error"] = e
           Commands::Error.new(vars, Command, nil, nil).run
