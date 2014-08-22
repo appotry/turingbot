@@ -6,8 +6,8 @@ require 'turingbot/version'
 Gem::Specification.new do |spec|
   spec.name          = "turingbot"
   spec.version       = Turingbot::VERSION
-  spec.authors       = ["Evan Phoenix"]
-  spec.email         = ["evan@phx.io"]
+  spec.authors       = ["Evan Phoenix", "Jonmichael Chambers"]
+  spec.email         = ["evan@phx.io", "jon@tyrbo.net"]
   spec.summary       = %q{TODO: Write a short summary. Required.}
   spec.description   = %q{TODO: Write a longer description. Optional.}
   spec.homepage      = ""

@@ -44,40 +44,5 @@ module Turingbot
         end
       end
     end
-
-    def basic_process_message(vars)
-      from = vars["user_name"]
-      text = vars["text"]
-      channel = vars["channel_id"]
-      token = vars["token"]
-
-      if text.match(/^hello/i)
-        say token, channel, "hello #{from}"
-      end
-    end
-
-    URL = "https://turingschool.slack.com/services/hooks/hubot"
-
-    def say(token, channel, what)
-      url = URL + "?token=#{token}"
-      body = {
-        "username" => "turingbot",
-        "channel" => channel,
-        "text" => what,
-      }
-
-      data = JSON.generate(body)
-
-      conn = Faraday.new(:url => 'https://turingschool.slack.com') do |faraday|
-        faraday.response :logger                  # log requests to STDOUT
-        faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
-      end
-     
-      conn.post do |req|
-        req.url "/services/hooks/hubot?token=#{token}"
-        req.headers['Content-Type'] = 'application/json'
-        req.body = data
-      end
-    end
   end
 end
