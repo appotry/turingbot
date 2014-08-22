@@ -40,7 +40,7 @@ module Turingbot
           Command.run(vars)
         rescue Exception => e
           vars["error"] = e
-          Commands::Error.new(vars, nil, nil).run
+          Commands::Error.new(vars, Command, nil, nil).run
         end
       end
     end

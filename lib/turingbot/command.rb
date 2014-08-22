@@ -7,7 +7,7 @@ module Turingbot
       Commands << [prefix, kind, self]
     end
 
-    def self.run(vars)
+    def self.run(vars, actions)
       text = vars["text"]
 
       kind = nil
@@ -24,20 +24,18 @@ module Turingbot
       end
 
       if cmd
-        cmd.new(vars, kind, match).run
+        cmd.new(vars, actions, kind, match).run
       end
     end
 
-    def initialize(vars, kind, match)
+    def initialize(vars, actions, kind, match)
       @vars = vars
+      @actions = actions
       @kind = kind
       @match = match
     end
 
     attr_reader :vars, :kind, :match
-
-    URL = "https://turingschool.slack.com"
-    PATH = "/services/hooks/hubot"
 
     def sender
       @vars["user_name"]
@@ -61,6 +59,13 @@ module Turingbot
         "text" => what,
       }
 
+      @actions.post body, token
+    end
+
+    URL = "https://turingschool.slack.com"
+    PATH = "/services/hooks/hubot"
+
+    def self.post(body, token)
       data = JSON.generate(body)
 
       conn = Faraday.new(:url => URL) do |faraday|
@@ -73,7 +78,6 @@ module Turingbot
         req.headers['Content-Type'] = 'application/json'
         req.body = data
       end
-
     end
   end
 end
