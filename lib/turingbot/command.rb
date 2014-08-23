@@ -69,10 +69,10 @@ module Turingbot
       data = JSON.generate(body)
 
       conn = Faraday.new(:url => URL) do |faraday|
-        faraday.response :logger                  # log requests to STDOUT
-        faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
+        faraday.response :logger, Logger.new($stdout) # log requests to $stdout
+        faraday.adapter  Faraday.default_adapter      # make requests with Net::HTTP
       end
-     
+
       conn.post do |req|
         req.url "#{PATH}?token=#{token}"
         req.headers['Content-Type'] = 'application/json'
