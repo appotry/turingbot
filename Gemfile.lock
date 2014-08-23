@@ -45,10 +45,10 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 1.6)
-  faraday (~> 0.9.0)
+  faraday (~> 0.9)
   minitest (~> 5.4)
   puma (~> 2.9)
-  rack-test (~> 0.6.2)
+  rack-test (~> 0.6)
   rake
   shikashi (~> 0.6.0)
   turingbot!
