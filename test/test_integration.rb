@@ -1,0 +1,52 @@
+require 'turingbot'
+require 'turingbot/test_case'
+require "rack/test"
+
+require 'webmock'
+WebMock.disable_net_connect!
+
+class TestIntegration < Turingbot::TestCase
+  BOT_NAME     = 'bot-name'
+  CHANNEL_NAME = 'channel-name'
+
+  class Slack
+    include Rack::Test::Methods
+    def app
+      Turingbot::Bot.new(BOT_NAME, CHANNEL_NAME)
+    end
+  end
+
+  def slack
+    @slack ||= Slack.new
+  end
+
+  include WebMock::API
+
+  def teardown
+    WebMock.reset!
+  end
+
+  def test_it_posts_command_responses_to_slack
+    capture_io do
+      stub_request(:post, "https://turingschool.slack.com/services/hooks/hubot?token=xxyyzz")
+        .with(body: JSON.dump("username" => "turingbot", "channel" => "aabbcc", "text" => "back attacha' Jeff"))
+        .to_return(status: 200)
+      response = slack.post '/', params_for("#{BOT_NAME} hello there", from: "Jeff", channel: CHANNEL_NAME)
+      assert_predicate response, :ok?
+    end
+  end
+
+  def test_it_ignores_non_commands
+    skip
+  end
+
+  def test_it_only_responds_to_post_requests
+    skip
+  end
+
+  def test_it_only_responds_to_messages_directed_at_it
+    skip
+  end
+end
+
+
