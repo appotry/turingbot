@@ -30,8 +30,7 @@ class TestIntegration < Turingbot::TestCase
   end
 
   def test_it_posts_command_responses_to_slack
-    capture_io do
-
+    capture_io do # <-- TODO should be a better way than this (ie inject logger)
       stub_request(:post, "https://turingschool.slack.com/services/hooks/hubot?token=xxyyzz")
         .with(body: JSON.dump("username" => "turingbot", "channel" => "aabbcc", "text" => "back attacha' Jeff"))
         .to_return(status: 200)
@@ -45,14 +44,4 @@ class TestIntegration < Turingbot::TestCase
     assert_predicate response, :ok?
     assert_no_requests_made
   end
-
-  def test_it_only_responds_to_messages_directed_at_it
-    skip
-  end
-
-  def test_it_ignores_non_commands
-    skip
-  end
 end
-
-
