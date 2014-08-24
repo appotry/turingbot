@@ -9,7 +9,6 @@ module Turingbot
         priv.methods_of(Fixnum).allow_all
         priv.methods_of(Hash).allow_all
         priv.methods_of(Array).allow_all
-        priv.methods_of(Kernel).allow_all
         priv.methods_of(Class).allow :new
         priv.methods_of(Module).allow :new
       end
