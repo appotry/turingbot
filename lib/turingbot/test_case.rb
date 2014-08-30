@@ -12,20 +12,19 @@ module Turingbot
       attr_reader :body
     end
 
-    def inject(msg, opts={})
-      vars = {
-        "text" => msg,
-        "user_name" => opts.fetch(:from, "tester"),
-        "channel_name" => opts.fetch(:channel, "test"),
-        "channel_id" => "aabbcc",
-        "token" => "xxyyzz"
-      }
-
+    def run_command(msg, opts={})
       response = Response.new
-
-      Turingbot::Command.run(vars, response)
-
+      Turingbot::Command.run(params_for(msg, opts), response)
       response
+    end
+
+    def params_for(msg, opts={})
+      { "text"         => msg,
+        "user_name"    => opts.fetch(:from, "tester"),
+        "channel_name" => opts.fetch(:channel, "test"),
+        "channel_id"   => "aabbcc",
+        "token"        => "xxyyzz"
+      }
     end
   end
 end
