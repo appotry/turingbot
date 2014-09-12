@@ -4,9 +4,9 @@ gem 'puma'
 
 gem 'faraday'
 
-gem 'shikashi'
-
 gem 'minitest'
+
+gem 'eval_in'
 
 # Specify your gem's dependencies in turingbot.gemspec
 gemspec

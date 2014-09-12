@@ -1,17 +1,9 @@
-require 'shikashi'
+require 'eval_in'
 
 module Turingbot
   module Commands
     class Run < Command
       match /^run/
-
-      Privileges = Shikashi::Privileges.new.tap do |priv|
-        priv.methods_of(Fixnum).allow_all
-        priv.methods_of(Hash).allow_all
-        priv.methods_of(Array).allow_all
-        priv.methods_of(Class).allow :new
-        priv.methods_of(Module).allow :new
-      end
 
       def run
         if m = argument.match(%r!https://gist\.github\.com/(.*)!)
@@ -23,10 +15,9 @@ module Turingbot
 
         puts "Running: #{code}"
 
-        s = Shikashi::Sandbox.new
+        result = EvalIn.call(code, stdin: 'world', language: 'ruby/mri-2.1')
 
-        val = s.run(Privileges, code)
-        say "=> #{val}"
+        say "=> #{result.output}"
       end
     end
   end
