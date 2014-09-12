@@ -6,15 +6,24 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
+    addressable (2.3.6)
+    crack (0.4.2)
+      safe_yaml (~> 1.0.0)
     eval_in (0.1.6)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
-    minitest (5.4.0)
+    minitest (5.4.1)
     multipart-post (2.0.0)
-    puma (2.9.0)
+    puma (2.9.1)
       rack (>= 1.1, < 2.0)
     rack (1.5.2)
+    rack-test (0.6.2)
+      rack (>= 1.0)
     rake (10.3.2)
+    safe_yaml (1.0.3)
+    webmock (1.18.0)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
 
 PLATFORMS
   ruby
@@ -22,8 +31,10 @@ PLATFORMS
 DEPENDENCIES
   bundler (~> 1.6)
   eval_in
-  faraday
-  minitest
-  puma
+  faraday (~> 0.9)
+  minitest (~> 5.4)
+  puma (~> 2.9)
+  rack-test (~> 0.6)
   rake
   turingbot!
+  webmock (~> 1.18)
